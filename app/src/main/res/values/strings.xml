@@ -11,4 +11,15 @@
     <string name="add">+</string>
     <string name="BeaconName">Input Beacon Name</string>
     <string name="found_beacons">Found Beacons:</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Strings related to Settings -->
+
+    <!-- Example General settings -->
+    <string name="pref_header_general">General</string>
+    <string name="settings">Settings</string>
+    <string name="firebaseIdSetting">Your firebase ID:</string>
+    <string name="fireBaseIdReceiverSetting">Receiver FireBase ID</string>
+
+
 </resources>

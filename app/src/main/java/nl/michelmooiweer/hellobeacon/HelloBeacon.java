@@ -68,9 +68,15 @@ public class HelloBeacon extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
+        Intent intent;
+
         switch (item.getItemId()){
             case R.id.addBeaconMenuItem:
-                Intent intent = new Intent(this, DiscoverBeacons.class);
+                intent = new Intent(this, DiscoverBeacons.class);
+                startActivity(intent);
+                return true;
+            case R.id.settingsMenuItem:
+                intent = new Intent(this, SettingsActivity.class);
                 startActivity(intent);
                 return true;
         }
