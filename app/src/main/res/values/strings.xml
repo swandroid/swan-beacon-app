@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">HelloBeacon</string>
+    <string name="action_settings">Settings</string>
+    <string name="Hello">Hello Beacon</string>
+    <string name="Distance">Distance</string>
+    <string name="RegisterBeacon">Add beacons</string>
+    <string name="preferenceFileKey">"nl.michelmooiweer.hellobeacon"</string>
+    <string name="ClosestBeacons">Closest Beacons</string>
+    <string name="title_activity_register_beacons">RegisterBeacons</string>
+    <string name="title_activity_discover_beacons">DiscoverBeacons</string>
+    <string name="add">+</string>
+    <string name="BeaconName">Input Beacon Name</string>
+    <string name="found_beacons">Found Beacons:</string>
+</resources>

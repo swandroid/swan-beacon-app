@@ -1,0 +1,59 @@
+{
+  "project_info": {
+    "project_number": "121726451740",
+    "firebase_url": "https://vu-bachelorproject.firebaseio.com",
+    "project_id": "vu-bachelorproject",
+    "storage_bucket": "vu-bachelorproject.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:121726451740:android:e1beb38101964bce",
+        "android_client_info": {
+          "package_name": "nl.michelmooiweer.hellobeacon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "121726451740-7u9thmqtm0u6v2mni0q3tb5jc0mv9elb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "nl.michelmooiweer.hellobeacon",
+            "certificate_hash": "b7b82e475c5d94eb29356d51c17de3e5936380de"
+          }
+        },
+        {
+          "client_id": "121726451740-9cj3smmmgo5snn54hk6ajva48qetmj29.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "121726451740-9cj3smmmgo5snn54hk6ajva48qetmj29.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCar-h4O2PLJcXGlTpEXkAbiXfe_6xUzsQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "121726451740-9cj3smmmgo5snn54hk6ajva48qetmj29.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
