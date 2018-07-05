@@ -54,12 +54,6 @@ public class BeaconDiscovery extends SwanSensor{
             }
         };
 
-        TriStateExpressionListener triStateExpressionListener = new TriStateExpressionListener() {
-            @Override
-            public void onNewState(String id, long timestamp, TriState newState) {
-
-            }
-        };
 
         try {
             for(String beaconType: beaconTypes) {
