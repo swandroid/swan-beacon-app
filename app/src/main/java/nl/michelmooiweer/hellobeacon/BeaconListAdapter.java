@@ -2,6 +2,7 @@ package nl.michelmooiweer.hellobeacon;
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.design.widget.TextInputLayout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,6 +62,10 @@ public class BeaconListAdapter extends ArrayAdapter<Beacon> {
             public void onClick(View view) {
                 beacons.get(position).name = holder.name.getEditText().getText().toString();
                 storage.registeredBeacons.add(beacons.get(position));
+                Intent intent = new Intent(context, AddBeacon.class);
+                intent.putExtra("beacon Id", beacons.get(position).name);
+                context.startActivity(intent);
+
                 setBeacons();
             }
         });
