@@ -20,6 +20,7 @@
     <string name="settings">Settings</string>
     <string name="firebaseIdSetting">Your firebase ID:</string>
     <string name="fireBaseIdReceiverSetting">Receiver FireBase ID</string>
+    <string name="max_distance">Max Distance</string>
 
 
 </resources>

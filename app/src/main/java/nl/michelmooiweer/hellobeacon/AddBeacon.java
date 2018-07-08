@@ -10,4 +10,8 @@ public class AddBeacon extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_beacon);
     }
+
+
+
+
 }
