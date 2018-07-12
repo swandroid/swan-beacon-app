@@ -50,7 +50,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             Context c = findPreference(FIRE_BASE_ID).getContext();
             SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(c).edit();
             editor.putString(FIRE_BASE_ID, FirebaseInstanceId.getInstance().getToken());
-            editor.apply();
+            editor.commit();
 
         }
 

@@ -21,7 +21,7 @@ public class Beacon extends SwanSensor {
 
     public String uuid, name;
 
-    public double distance;
+    public double distance, maxDistance;
     public boolean swanRegistered;
 
     Beacon(String uuid){
@@ -84,6 +84,10 @@ public class Beacon extends SwanSensor {
 
     void unRegisterBeacon(Context context) {
         ExpressionManager.unregisterExpression(context, uuid);
+    }
+
+    public void setMaxDistance(int distance) {
+        maxDistance = distance;
     }
 }
 

@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -22,7 +24,7 @@ public class AddBeacon extends AppCompatActivity {
         setContentView(R.layout.activity_add_beacon);
         Intent intent = getIntent();
         this.beaconId = intent.getStringExtra("beaconId");
-        beacon =new Beacon(beaconId);
+        beacon = new Beacon(beaconId);
 
         final Handler seekBarHandler = new Handler();
         final SeekBar distanceSeekbar = findViewById(R.id.distanceSeekBar);
@@ -82,6 +84,24 @@ public class AddBeacon extends AppCompatActivity {
 
 
         });
+
+        Button button = findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                beacon.setMaxDistance(maxDistance);
+
+
+                if(Storage.getStorage().registeredBeacons.contains(beacon)){
+                    Storage.getStorage().registeredBeacons.remove(beacon);
+                }
+
+                Storage.getStorage().registeredBeacons.add(beacon);
+
+            }
+        });
+
+
     }
 
 
