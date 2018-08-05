@@ -1,6 +1,6 @@
 /*
  * This file is auto-generated.  DO NOT MODIFY.
- * Original file: /home/michel/Git/HelloBeacon/senseandroidlibrary/src/main/aidl/nl/sense_os/service/ISenseServiceCallback.aidl
+ * Original file: /home/michel/Git/swan-sense-studio/senseandroidlibrary/src/main/aidl/nl/sense_os/service/ISenseServiceCallback.aidl
  */
 package nl.sense_os.service;
 public interface ISenseServiceCallback extends android.os.IInterface

@@ -121,7 +121,7 @@ public class EvaluationManagerBase {
         resolveLocation(expression);
         String location = expression.getLocation();
         if (!location.equals(Expression.LOCATION_SELF)
-                && !location.equals(Expression.LOCATION_INDEPENDENT)) {
+                && !location.equals(Expression.LOCATION_INDEPENDENT) && false) {
             initializeRemote(id, expression, location);
         } else if (expression instanceof LogicExpression) {
             initialize(id + Expression.LEFT_SUFFIX,
@@ -150,7 +150,7 @@ public class EvaluationManagerBase {
     public void stop(String id, Expression expression) {
         // should get the sensors stop producing data.
         String location = expression.getLocation();
-        if (!location.equals(Expression.LOCATION_SELF)
+        if (false && !location.equals(Expression.LOCATION_SELF)
                 && !location.equals(Expression.LOCATION_INDEPENDENT)) {
             stopRemote(id, expression);
         } else if (expression instanceof LogicExpression) {
@@ -209,7 +209,7 @@ public class EvaluationManagerBase {
         Result result = null;
         // if the location is remote, result is null or undefined
         String location = expression.getLocation();
-        if (!location.equals(Expression.LOCATION_SELF)
+        if (false &&!location.equals(Expression.LOCATION_SELF)
                 && !location.equals(Expression.LOCATION_INDEPENDENT)) {
             if (expression instanceof TriStateExpression) {
                 if (mCachedResults.containsKey(id)) {

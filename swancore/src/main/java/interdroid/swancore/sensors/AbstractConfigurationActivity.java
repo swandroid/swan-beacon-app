@@ -103,7 +103,7 @@ public abstract class AbstractConfigurationActivity extends PreferenceActivity
                 findPreference(key), value);
     }
 
-    //@SuppressWarnings("deprecation")
+    @SuppressWarnings("deprecation")
     @Override
     protected void onResume() {
         addPreferencesFromIntent(new Intent(

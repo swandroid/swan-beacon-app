@@ -3,7 +3,7 @@
     package="nl.sense_os.service"
     android:versionName="3.0.2" > <!-- <uses-sdk -->
     <uses-sdk
-        android:minSdkVersion="14"
-        android:targetSdkVersion="27" />
+        android:minSdkVersion="9"
+        android:targetSdkVersion="23" />
 
 </manifest>
