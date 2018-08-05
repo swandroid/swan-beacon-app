@@ -31,11 +31,14 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    api project(':swancore')
-    api project(':swansong')
-    api project(':senseandroidlibrary')
+//    compile 'interdroid.swancore.swanmain:swaninterface:1.0.3'
+
+//    api project(':swancore')
+//    api project(':swansong')
+//    api project(':senseandroidlibrary')
+//    api project(':swancore')
     api project(':swaninterface')
-    //compile project(path: ':swaninterface')
+//    compile project(path: ':swaninterface')
 }
 
 

@@ -1,8 +1,10 @@
 package nl.michelmooiweer.hellobeacon;
 
+import android.app.Activity;
 import android.content.Context;
 import android.media.TimedMetaData;
 import android.util.Log;
+import android.widget.TextView;
 
 
 import com.google.firebase.messaging.FirebaseMessaging;
@@ -32,7 +34,7 @@ public class Beacon extends SwanSensor {
         swanRegistered = false;
     }
 
-    void RegisterBeacon(Context context) {
+    void RegisterBeacon(final Context context) {
         if (swanRegistered) {
             Log.i("Beacon", "Beacon" + this.uuid + "Already Registered");
             return;
@@ -48,8 +50,11 @@ public class Beacon extends SwanSensor {
                                                 TimestampedValue[] arg1) {
                             Log.d("Beacon","New Values:" + id + " uuid:" + uuid);
                             if(arg1 != null && arg1.length > 0){
-                                for(TimestampedValue t: arg1)
-                                    Log.d("Beacon", "Value" +t.getValue().toString());
+                                for(TimestampedValue t: arg1) {
+                                    Log.d("Beacon", "Value" + t.getValue().toString());
+                                    TextView distance = ((Activity)context).findViewById(R.id.distanceValue);
+                                    distance.setText(t.getValue().toString());
+                                }
                             }
 
                         }

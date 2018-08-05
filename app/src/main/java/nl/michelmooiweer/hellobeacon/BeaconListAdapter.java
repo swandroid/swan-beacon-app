@@ -63,7 +63,7 @@ public class BeaconListAdapter extends ArrayAdapter<Beacon> {
                 beacons.get(position).name = holder.name.getEditText().getText().toString();
                 storage.registeredBeacons.add(beacons.get(position));
                 Intent intent = new Intent(context, AddBeacon.class);
-                intent.putExtra("beaconId", beacons.get(position).name);
+                intent.putExtra("beaconId", beacons.get(position).uuid);
                 context.startActivity(intent);
 
                 setBeacons();
