@@ -98,6 +98,7 @@ public class AddBeacon extends AppCompatActivity {
 
                 Storage.getStorage().registeredBeacons.add(beacon);
 
+                finish();
             }
         });
 
