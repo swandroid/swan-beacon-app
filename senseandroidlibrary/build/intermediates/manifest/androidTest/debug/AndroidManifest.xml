@@ -12,36 +12,9 @@
         android:handleProfiling="false"
         android:label="Tests for nl.sense_os.service.test"
         android:targetPackage="nl.sense_os.service.test" />
-    <!-- Permissions required for GCM -->
-    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- Optional permission for App measurement to run. -->
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application android:debuggable="true" >
         <uses-library android:name="android.test.runner" />
-
-        <provider
-            android:name="com.google.android.gms.measurement.AppMeasurementContentProvider"
-            android:authorities="nl.sense_os.service.test.google_measurement_service"
-            android:exported="false" />
-
-        <receiver
-            android:name="com.google.android.gms.measurement.AppMeasurementReceiver"
-            android:enabled="true" >
-            <intent-filter>
-                <action android:name="com.google.android.gms.measurement.UPLOAD" />
-            </intent-filter>
-        </receiver>
-
-        <service
-            android:name="com.google.android.gms.measurement.AppMeasurementService"
-            android:enabled="true"
-            android:exported="false" />
-
-        <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
     </application>
 
 </manifest>
