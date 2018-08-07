@@ -7,4 +7,7 @@
     <item
         android:id="@+id/settingsMenuItem"
         android:title="@string/settings" />
+    <item
+        android:id="@+id/batteryTestMenuItem"
+        android:title="@string/test_battery" />
 </menu>

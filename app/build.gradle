@@ -5,7 +5,7 @@ android {
     defaultConfig {
         applicationId "nl.michelmooiweer.hellobeacon"
         minSdkVersion 15
-        targetSdkVersion 27
+        targetSdkVersion 23
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -36,10 +36,14 @@ dependencies {
 //    api project(':swancore')
 //    api project(':swansong')
 //    api project(':senseandroidlibrary')
-//    api project(':swancore')
+    api project(':swancore')
     api project(':swaninterface')
 //    compile project(path: ':swaninterface')
 }
+
+
+
+
 
 
 

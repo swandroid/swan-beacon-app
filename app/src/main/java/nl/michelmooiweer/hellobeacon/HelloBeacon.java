@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -43,8 +42,8 @@ public class HelloBeacon extends AppCompatActivity {
         }
     }
 
-    protected void onStop(){
-        super.onStop();
+    protected void onPause(){
+        super.onPause();
         unregisterSensors();
     }
 
@@ -68,6 +67,10 @@ public class HelloBeacon extends AppCompatActivity {
                 return true;
             case R.id.settingsMenuItem:
                 intent = new Intent(this, SettingsActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.batteryTestMenuItem:
+                intent = new Intent(this, MainBattery.class);
                 startActivity(intent);
                 return true;
         }

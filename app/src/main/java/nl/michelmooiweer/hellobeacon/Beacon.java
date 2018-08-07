@@ -52,8 +52,8 @@ public class Beacon extends SwanSensor {
                             if(arg1 != null && arg1.length > 0){
                                 for(TimestampedValue t: arg1) {
                                     Log.d("Beacon", "Value" + t.getValue().toString());
-                                    TextView distance = ((Activity)context).findViewById(R.id.distanceValue);
-                                    distance.setText(t.getValue().toString());
+//                                    TextView distance = ((Activity)context).findViewById(R.id.distanceValue);
+//                                    distance.setText(t.getValue().toString());
                                 }
                             }
 

@@ -21,6 +21,14 @@
     <string name="firebaseIdSetting">Your firebase ID:</string>
     <string name="fireBaseIdReceiverSetting">Receiver FireBase ID</string>
     <string name="max_distance">Max Distance</string>
+    <string name="title_activity_gps_location">GpsLocation</string>
+    <string name="longitude">Longitude</string>
+    <string name="latitude">Latitude</string>
+    <string name="test_battery">Test Battery</string>
+    <string name="gps_location">GPS Location</string>
+    <string name="network_location">network location</string>
+    <string name="number_of_beacons">Number of Beacons</string>
+    <string name="beaon_location">Beaon Location</string>
 
 
 </resources>
