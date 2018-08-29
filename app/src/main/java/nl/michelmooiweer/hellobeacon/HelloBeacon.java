@@ -5,13 +5,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import interdroid.swancore.swansong.ExpressionFactory;
-import interdroid.swancore.swansong.ExpressionParseException;
-import interdroid.swancore.swansong.TriStateExpression;
 import nl.michelmooiweer.hellobeacon.firebase.FirebaseService;
 
 
@@ -25,13 +21,7 @@ public class HelloBeacon extends AppCompatActivity {
         setContentView(R.layout.activity_hello_beacon);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        try {
-            TriStateExpression a = (TriStateExpression)ExpressionFactory.parse("self@beaconDistance:distance{MEAN,1000}>500");
-            Log.d("TRI", a.toParseString());
 
-        } catch (ExpressionParseException e) {
-            e.printStackTrace();
-        }
         fbs = new FirebaseService();
     }
 
@@ -52,8 +42,8 @@ public class HelloBeacon extends AppCompatActivity {
         }
     }
 
-    protected void onStop(){
-        super.onStop();
+    protected void onPause(){
+        super.onPause();
         unregisterSensors();
     }
 
@@ -77,6 +67,10 @@ public class HelloBeacon extends AppCompatActivity {
                 return true;
             case R.id.settingsMenuItem:
                 intent = new Intent(this, SettingsActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.batteryTestMenuItem:
+                intent = new Intent(this, MainBattery.class);
                 startActivity(intent);
                 return true;
         }

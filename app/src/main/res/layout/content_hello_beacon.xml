@@ -8,4 +8,28 @@
     tools:context="nl.michelmooiweer.hellobeacon.HelloBeacon"
     tools:showIn="@layout/activity_hello_beacon">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/FoundBeacons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/monitoring_beacons"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+
+        <TextView
+            android:id="@+id/distanceValue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="30sp" />
+
+    </LinearLayout>
+
+
 </android.support.constraint.ConstraintLayout>

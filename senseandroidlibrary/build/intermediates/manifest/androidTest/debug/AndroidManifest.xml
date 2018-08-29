@@ -3,8 +3,8 @@
     package="nl.sense_os.service.test" >
 
     <uses-sdk
-        android:minSdkVersion="14"
-        android:targetSdkVersion="27" />
+        android:minSdkVersion="9"
+        android:targetSdkVersion="23" />
 
     <instrumentation
         android:name="android.test.InstrumentationTestRunner"
