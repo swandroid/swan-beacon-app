@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="__local_aars__:/home/michel/Git/swan-sense-studio/senseandroidlibrary/libs/cordova-4.1.1.jar:unspecified@jar">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../senseandroidlibrary/libs/cordova-4.1.1.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

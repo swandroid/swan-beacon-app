@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="__local_aars__:/home/michel/Git/swan-sense-studio/phone/libs/gcm-server.jar:unspecified@jar">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../phone/libs/gcm-server.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
