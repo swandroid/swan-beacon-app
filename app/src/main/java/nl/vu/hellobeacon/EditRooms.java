@@ -37,6 +37,11 @@ public class EditRooms extends AppCompatActivity {
             public void deleteRoomOnClick(View v, Room room) {
                 roomViewModel.delete(room);
             }
+
+            @Override
+            public void addMeasurements(View v, Room room){
+                Toast.makeText(EditRooms.this, "NOT IMPLEMENTED YET!", Toast.LENGTH_SHORT).show();
+            }
         });
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

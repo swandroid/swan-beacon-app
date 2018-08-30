@@ -23,7 +23,8 @@
             android:exported="true" />
 
         <activity android:name=".EditRooms" />
-        <activity android:name=".NewRoomActivity"></activity>
+        <activity android:name=".NewRoomActivity" />
+        <activity android:name=".AddBeacons"></activity>
     </application>
 
 </manifest>

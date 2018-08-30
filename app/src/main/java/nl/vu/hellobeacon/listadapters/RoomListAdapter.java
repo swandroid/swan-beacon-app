@@ -21,11 +21,13 @@ public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.RoomVi
     class RoomViewHolder extends RecyclerView.ViewHolder {
         private final TextView RoomItemView;
         private final ImageButton DeleteRoom;
+        private final ImageButton AddMeasurements;
 
         private RoomViewHolder(View itemView) {
             super(itemView);
             RoomItemView = itemView.findViewById(R.id.placehloder);
             DeleteRoom = itemView.findViewById(R.id.deleteRoom);
+            AddMeasurements = itemView.findViewById(R.id.addMeasurements);
         }
     }
 
@@ -57,6 +59,13 @@ public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.RoomVi
                  }
 
         );
+
+        holder.AddMeasurements.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickListener.addMeasurements(v, mRooms.get(position));
+            }
+        });
     }
 
     public void setRooms(List<Room> Rooms){

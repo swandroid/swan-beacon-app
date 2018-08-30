@@ -15,7 +15,7 @@ public class RoomViewModel extends AndroidViewModel{
     private LiveData<List<Room>> allRooms;
     public RoomViewModel( Application application) {
         super(application);
-        repository = new AppRepository(application);
+        repository = AppRepository.getRepository(application);
         allRooms = repository.getAllRooms();
 
     }
