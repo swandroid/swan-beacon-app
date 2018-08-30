@@ -14,5 +14,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Intent intent = new Intent(this, LocationService.class);
         startService(intent);
+
+        intent = new Intent(this, EditRooms.class);
+        startActivity(intent);
     }
 }

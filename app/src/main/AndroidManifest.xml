@@ -22,7 +22,8 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".EditRooms"></activity>
+        <activity android:name=".EditRooms" />
+        <activity android:name=".NewRoomActivity"></activity>
     </application>
 
 </manifest>

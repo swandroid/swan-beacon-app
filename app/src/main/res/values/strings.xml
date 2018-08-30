@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">HelloBeacon</string>
+    <string name="deleteRoomButtonDescription">deleteRoom</string>
+    <string name="addMeasurements">add measurements to this room</string>
+    <string name="delete_room">Delete Room</string>
+    <string name="placeholder">Placeholder</string>
+    <string name="hint_word">Room Name</string>
+    <string name="button_save">Save</string>
+    <string name="empty_not_saved">Room could not be saved</string>
 </resources>
