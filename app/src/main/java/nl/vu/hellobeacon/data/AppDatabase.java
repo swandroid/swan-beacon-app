@@ -10,8 +10,10 @@ import android.content.Context;
 import nl.vu.hellobeacon.data.dataAccesObjects.BeaconDAO;
 import nl.vu.hellobeacon.data.dataAccesObjects.RoomDAO;
 import nl.vu.hellobeacon.data.entities.Beacon;
+import nl.vu.hellobeacon.data.entities.BeaconDistanceMeasurement;
+import nl.vu.hellobeacon.data.entities.LocationMeasurement;
 
-@Database(entities = {nl.vu.hellobeacon.data.entities.Room.class, Beacon.class}, version = 2)
+@Database(entities = {nl.vu.hellobeacon.data.entities.Room.class, Beacon.class, BeaconDistanceMeasurement.class, LocationMeasurement.class}, version = 2)
 public abstract class AppDatabase extends RoomDatabase {
 
     public abstract RoomDAO roomDAO();

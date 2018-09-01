@@ -1,10 +1,8 @@
 package nl.vu.hellobeacon;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
-import nl.vu.hellobeacon.services.LocationService;
+import android.support.v7.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -15,7 +13,7 @@ public class MainActivity extends AppCompatActivity {
 //        Intent intent = new Intent(this, LocationService.class);
 //        startService(intent);
 
-        Intent intent = new Intent(this, AddBeacons.class);
+        Intent intent = new Intent(this, EditRooms.class);
         startActivity(intent);
     }
 }

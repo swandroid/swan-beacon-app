@@ -24,7 +24,8 @@
 
         <activity android:name=".EditRooms" />
         <activity android:name=".NewRoomActivity" />
-        <activity android:name=".AddBeacons"></activity>
+        <activity android:name=".AddBeacons" />
+        <activity android:name=".AddMeasurements"></activity>
     </application>
 
 </manifest>

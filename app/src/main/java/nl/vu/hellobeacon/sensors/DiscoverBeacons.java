@@ -44,20 +44,6 @@ public class DiscoverBeacons {
 
     public void registerSensor(final Context context) {
         beaconViewModel = ViewModelProviders.of((FragmentActivity) context).get(BeaconViewModel.class);
-        TimestampedValue a = new TimestampedValue("PB48NS");
-        TimestampedValue b = new TimestampedValue("PB48sNS");
-        TimestampedValue c = new TimestampedValue("PBs48NS");
-        TimestampedValue d = new TimestampedValue("PB48NS");
-        beaconViewModel.insert(new nl.vu.hellobeacon.data.entities.Beacon(a.getValue().toString()));
-        beaconViewModel.insert(new nl.vu.hellobeacon.data.entities.Beacon(b.getValue().toString()));
-        beaconViewModel.insert(new nl.vu.hellobeacon.data.entities.Beacon(c.getValue().toString()));
-        beaconViewModel.insert(new nl.vu.hellobeacon.data.entities.Beacon(d.getValue().toString()));
-        beaconViewModel.insert(new nl.vu.hellobeacon.data.entities.Beacon(a.getValue().toString()));
-        beaconViewModel.insert(new nl.vu.hellobeacon.data.entities.Beacon(b.getValue().toString()));
-        beaconViewModel.insert(new nl.vu.hellobeacon.data.entities.Beacon(c.getValue().toString()));
-        beaconViewModel.insert(new nl.vu.hellobeacon.data.entities.Beacon(d.getValue().toString()));
-
-
         ValueExpressionListener valueExpressionListener = new ValueExpressionListener() {
 
             @Override
@@ -66,7 +52,6 @@ public class DiscoverBeacons {
                 if (arg1 != null && arg1.length > 0) {
                     for (TimestampedValue t : arg1) {
                         beaconViewModel.insert(new nl.vu.hellobeacon.data.entities.Beacon(t.getValue().toString()));
-
                     }
                 }
             }

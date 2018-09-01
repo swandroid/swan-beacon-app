@@ -1,19 +1,25 @@
 package nl.vu.hellobeacon.data.entities;
 
-import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.PrimaryKey;
+import android.arch.persistence.room.ForeignKey;
 
-import java.util.List;
-
-@Entity
+@Entity(primaryKeys = {"distanceMeasurement"},
+        foreignKeys = {
+                @ForeignKey(entity = BeaconDistanceMeasurement.class,
+                                    parentColumns = "index",
+                                    childColumns = "distanceMeasurement"),
+                @ForeignKey(entity = Room.class,
+                                    parentColumns = "roomName",
+                                    childColumns = "room")
+        })
 public class LocationMeasurement {
-    @PrimaryKey(autoGenerate = true)
-    private int index;
+    public final int distanceMeasurement;
 
-    @ColumnInfo(name = "Beacon_Distance_Measurement")
-    private List<BeaconDistanceMeasurement> beaconDistanceMeasurements;
+    public final String room;
 
-    @ColumnInfo(name = "Room")
-    private Room room;
+    public LocationMeasurement(int distanceMeasurement, String room){
+        this.distanceMeasurement = distanceMeasurement;
+        this.room = room;
+    }
+
 }

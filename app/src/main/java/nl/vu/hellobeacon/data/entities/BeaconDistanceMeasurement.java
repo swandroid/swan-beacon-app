@@ -1,20 +1,17 @@
 package nl.vu.hellobeacon.data.entities;
 
-import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
 
-@Entity
+@Entity(foreignKeys = @ForeignKey(entity = Beacon.class,
+                                    parentColumns = "uuid",
+                                    childColumns = "beacon"))
 public class BeaconDistanceMeasurement {
-    @PrimaryKey(autoGenerate = true)
-    private int index;
 
-    private Beacon beacon;
+    public int index;
 
-    private double distance;
+    public String beacon;
 
-
-
-
-
+    public double distance;
 }

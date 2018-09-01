@@ -7,13 +7,7 @@ import android.support.annotation.NonNull;
 public class Room {
     @PrimaryKey
     @NonNull
-    private String roomName;
-
-
-
-    public String getRoomName(){
-        return roomName;
-    }
+    public String roomName;
 
     public Room(@NonNull String roomName) {
         this.roomName = roomName;
