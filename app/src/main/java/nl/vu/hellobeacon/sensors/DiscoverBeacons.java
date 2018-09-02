@@ -60,7 +60,7 @@ public class DiscoverBeacons {
 
         try {
             for(String beaconType: beaconTypes) {
-                Log.d("Beacon", String.format(swanExpression, beaconType));
+                Log.d("BeaconDistanceSensor", String.format(swanExpression, beaconType));
                 ExpressionManager.registerValueExpression(context, id+beaconType, (ValueExpression) ExpressionFactory.parse(String.format(swanExpression, beaconType)), valueExpressionListener);
             }
 

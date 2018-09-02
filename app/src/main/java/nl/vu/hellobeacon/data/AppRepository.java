@@ -7,7 +7,11 @@ import android.os.AsyncTask;
 import java.util.List;
 
 import nl.vu.hellobeacon.data.dataAccesObjects.BeaconDAO;
+import nl.vu.hellobeacon.data.dataAccesObjects.BeaconDistanceMeasurementDAO;
+import nl.vu.hellobeacon.data.dataAccesObjects.LocationMeasurementDAO;
 import nl.vu.hellobeacon.data.dataAccesObjects.RoomDAO;
+import nl.vu.hellobeacon.data.entities.BeaconDistanceMeasurement;
+import nl.vu.hellobeacon.data.entities.LocationMeasurement;
 import nl.vu.hellobeacon.data.entities.Room;
 import nl.vu.hellobeacon.data.entities.Beacon;
 
@@ -15,17 +19,23 @@ public class AppRepository {
 
     private RoomDAO roomDAO;
     private BeaconDAO beaconDAO;
+    private BeaconDistanceMeasurementDAO beaconDistanceMeasurementDAO;
+    private LocationMeasurementDAO locationMeasurementDAO;
     private LiveData<List<Room>> allRooms;
     private LiveData<List<Beacon>> allBeacons;
     private LiveData<Integer> beaconCount;
+    private LiveData<Integer> beaconDistanceMeasurementIndex;
 
     private AppRepository(Application application) {
         AppDatabase db = AppDatabase.getDatabase(application);
         roomDAO = db.roomDAO();
         beaconDAO = db.beaconDAO();
+        beaconDistanceMeasurementDAO = db.beaconDistanceMeasurementDAO();
+        locationMeasurementDAO = db.locationMeasurementDAO();
         allRooms = roomDAO.getAll();
         allBeacons = beaconDAO.getAll();
         beaconCount = beaconDAO.count();
+        beaconDistanceMeasurementIndex = beaconDistanceMeasurementDAO.getMaxIndex();
     }
 
     private static AppRepository INSTANCE;
@@ -125,5 +135,57 @@ public class AppRepository {
     public LiveData<Integer> getBeaconCount(){return beaconCount;}
 
     //endregion
+
+    //region BeaconDistanceMeasurement
+    public LiveData<Integer> getBeaconDistanceMeasurementIndex(){return beaconDistanceMeasurementIndex;}
+
+    public void insertBeaconDistanceMeasurement(BeaconDistanceMeasurement beaconDistanceMeasurement){
+        new insertBeaconDistanceMeasurementAsyncTask(beaconDistanceMeasurementDAO).execute(beaconDistanceMeasurement);
+    }
+
+    private static class insertBeaconDistanceMeasurementAsyncTask extends AsyncTask<BeaconDistanceMeasurement, Void, Void> {
+
+        private BeaconDistanceMeasurementDAO mAsyncTaskDao;
+
+        insertBeaconDistanceMeasurementAsyncTask(BeaconDistanceMeasurementDAO dao) {
+            mAsyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(final BeaconDistanceMeasurement... params) {
+            mAsyncTaskDao.insert(params[0]);
+            return null;
+        }
+    }
+    //endregion
+
+    //region LocationMeasurement
+
+
+    public void insertLocationMeasurement(LocationMeasurement locationMeasurement){
+        new insertLocationMeasurementAsyncTask(locationMeasurementDAO).execute(locationMeasurement);
+    }
+
+    private static class insertLocationMeasurementAsyncTask extends AsyncTask<LocationMeasurement, Void, Void>{
+
+        private LocationMeasurementDAO myAsyncTaskDao;
+
+        insertLocationMeasurementAsyncTask(LocationMeasurementDAO dao) {
+            myAsyncTaskDao = dao;
+        }
+
+
+
+        @Override
+        protected Void doInBackground(final LocationMeasurement... params) {
+            myAsyncTaskDao.insert(params[0]);
+            return null;
+        }
+    }
+
+
+    //endregion
+
+
 
 }

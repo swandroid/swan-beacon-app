@@ -8,17 +8,23 @@ import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
 import nl.vu.hellobeacon.data.dataAccesObjects.BeaconDAO;
+import nl.vu.hellobeacon.data.dataAccesObjects.BeaconDistanceMeasurementDAO;
+import nl.vu.hellobeacon.data.dataAccesObjects.LocationMeasurementDAO;
 import nl.vu.hellobeacon.data.dataAccesObjects.RoomDAO;
 import nl.vu.hellobeacon.data.entities.Beacon;
 import nl.vu.hellobeacon.data.entities.BeaconDistanceMeasurement;
 import nl.vu.hellobeacon.data.entities.LocationMeasurement;
 
-@Database(entities = {nl.vu.hellobeacon.data.entities.Room.class, Beacon.class, BeaconDistanceMeasurement.class, LocationMeasurement.class}, version = 2)
+@Database(entities = {nl.vu.hellobeacon.data.entities.Room.class, Beacon.class, BeaconDistanceMeasurement.class, LocationMeasurement.class}, version = 5)
 public abstract class AppDatabase extends RoomDatabase {
 
     public abstract RoomDAO roomDAO();
 
     public abstract BeaconDAO beaconDAO();
+
+    public abstract BeaconDistanceMeasurementDAO beaconDistanceMeasurementDAO();
+
+    public abstract LocationMeasurementDAO locationMeasurementDAO();
 
     private static AppDatabase INSTANCE;
 

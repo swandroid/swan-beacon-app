@@ -12,7 +12,7 @@ import interdroid.swancore.swansong.TimestampedValue;
 import interdroid.swancore.swansong.ValueExpression;
 
 
-public class Beacon {
+public class BeaconDistanceSensor {
 
     private String uuid;
     private double distance;
@@ -21,7 +21,7 @@ public class Beacon {
     private final static int MAX_DELAY = 10000;
 
 
-    Beacon(String uuid){
+    public BeaconDistanceSensor(String uuid){
         super();
         this.distance = -1;
         this.uuid = uuid;
@@ -29,7 +29,7 @@ public class Beacon {
         timestamp = 0;
     }
 
-    void RegisterBeacon(final Context context) {
+    public void registerBeacon(final Context context) {
         if (swanRegistered) {
             return;
         }
@@ -42,10 +42,10 @@ public class Beacon {
                         @Override
                         public void onNewValues(String id,
                                                 TimestampedValue[] arg1) {
-                            Log.d("Beacon","New Values:" + id + " uuid:" + uuid);
+                            Log.d("BeaconDistanceSensor","New Values:" + id + " uuid:" + uuid);
                             if(arg1 != null && arg1.length > 0){
                                 for(TimestampedValue t: arg1) {
-                                    Log.d("Beacon", "Value" + t.getValue().toString());
+                                    Log.d("BeaconDistanceSensor", "Value" + t.getValue().toString());
                                     distance = (double)t.getValue();
                                     timestamp = t.getTimestamp();
                                 }
@@ -53,7 +53,7 @@ public class Beacon {
 
                         }
                     });
-            Log.d("Beacon", "Registered Beacon with uuid" + uuid);
+            Log.d("BeaconDistanceSensor", "Registered BeaconDistanceSensor with uuid" + uuid);
         } catch (SwanException e) {
             e.printStackTrace();
         } catch (ExpressionParseException e) {
@@ -70,17 +70,21 @@ public class Beacon {
         return distance;
     }
 
+    public String getUuid(){
+        return this.uuid;
+    }
+
     @Override
     public boolean equals(Object obj){
         if(obj == null){
             return false;
         }
 
-        if(!Beacon.class.isAssignableFrom(obj.getClass())){
+        if(!BeaconDistanceSensor.class.isAssignableFrom(obj.getClass())){
             return false;
         }
 
-        final Beacon other = (Beacon) obj;
+        final BeaconDistanceSensor other = (BeaconDistanceSensor) obj;
 
         return this.uuid == null ? other.uuid == null : this.uuid.equals(other.uuid);
     }
@@ -90,7 +94,7 @@ public class Beacon {
         return uuid.hashCode();
     }
 
-    void unRegisterBeacon(Context context) {
+    public void unRegisterBeacon(Context context) {
         ExpressionManager.unregisterExpression(context, uuid);
     }
 
