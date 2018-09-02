@@ -22,16 +22,20 @@ public class BeaconDistanceSensor {
 
 
     public BeaconDistanceSensor(String uuid){
-        super();
         this.distance = -1;
         this.uuid = uuid;
         swanRegistered = false;
         timestamp = 0;
     }
 
-    public void registerBeacon(final Context context) {
+    public BeaconDistanceSensor(String uuid, String postfix){
+        this(uuid);
+        this.uuid += postfix;
+    }
+
+    public BeaconDistanceSensor registerBeacon(final Context context) {
         if (swanRegistered) {
-            return;
+            return this;
         }
 
 
@@ -59,6 +63,8 @@ public class BeaconDistanceSensor {
         } catch (ExpressionParseException e) {
             e.printStackTrace();
         }
+
+        return this;
     }
 
 

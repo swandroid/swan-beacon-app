@@ -36,19 +36,19 @@ public class EditRooms extends AppCompatActivity {
         beaconViewModel = new BeaconViewModel(this.getApplication());
         roomViewModel = ViewModelProviders.of(this).get(RoomViewModel.class);
 
+
+
         if(BuildConfig.DEBUG) {
-//            roomViewModel.deleteAll();
+            roomViewModel.deleteAll();
 
-//            roomViewModel.insert(new Room("Bedroom"));
-//            roomViewModel.insert(new Room("Kitchen"));
-//            roomViewModel.insert(new Room("Living Room"));
-//            roomViewModel.insert(new Room("Bathroom"));
-//            roomViewModel.insert(new Room("Hallway"));
-//
-//            beaconViewModel.insert(new Beacon("BEACONUUID"));
+            roomViewModel.insert(new Room("Bedroom"));
+            roomViewModel.insert(new Room("Kitchen"));
+            roomViewModel.insert(new Room("Living Room"));
+            roomViewModel.insert(new Room("Bathroom"));
+            roomViewModel.insert(new Room("Hallway"));
+
+            beaconViewModel.insert(new Beacon("BEACONUUID"));
         }
-
-
 
 
 

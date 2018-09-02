@@ -11,4 +11,5 @@
     <string name="add_beacons">Add Beacons</string>
     <string name="you_are_in">You are in:</string>
     <string name="unknown">Unknown</string>
+    <string name="number_of_beacons_found">Number of beacons found:</string>
 </resources>

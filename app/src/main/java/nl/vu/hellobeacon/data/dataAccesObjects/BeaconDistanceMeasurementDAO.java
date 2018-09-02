@@ -5,6 +5,8 @@ import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
+import java.util.List;
+
 import nl.vu.hellobeacon.data.entities.BeaconDistanceMeasurement;
 
 import static android.arch.persistence.room.OnConflictStrategy.REPLACE;
@@ -15,8 +17,8 @@ public interface BeaconDistanceMeasurementDAO {
     @Insert(onConflict = REPLACE)
     void insert(BeaconDistanceMeasurement beaconDistanceMeasurement);
 
-    @Query("SELECT * FROM BeaconDistanceMeasurement WHERE `index` = :index")
-    LiveData<BeaconDistanceMeasurement> getDistanceMeasurement(int index);
+    @Query("SELECT * FROM BeaconDistanceMeasurement")
+    List<BeaconDistanceMeasurement> getDistanceMeasurement();
 
     @Query("SELECT MAX(`index`) FROM beaconDistanceMeasurement")
     LiveData<Integer> getMaxIndex();

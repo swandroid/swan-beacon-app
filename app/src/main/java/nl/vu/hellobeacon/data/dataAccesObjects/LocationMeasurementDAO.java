@@ -9,6 +9,7 @@ import android.arch.persistence.room.Query;
 
 import java.util.List;
 
+import nl.vu.hellobeacon.data.LocationDistanceJoin;
 import nl.vu.hellobeacon.data.entities.LocationMeasurement;
 
 import static android.arch.persistence.room.OnConflictStrategy.REPLACE;
@@ -21,10 +22,10 @@ public interface LocationMeasurementDAO {
     @Delete
     void delete(LocationMeasurement locationMeasurement);
 
-//    @Query("SELECT * FROM locationmeasurement INNER JOIN beacondistancemeasurement " +
-//            "ON locationmeasurement.distanceMeasurement=beacondistancemeasurement.`index` INNER JOIN room ON locationmeasurement.room = room.roomName")
-    @Query("SELECT * FROM locationmeasurement")
-    LiveData<List<LocationMeasurement>> getAll();
+    @Query("SELECT * FROM locationmeasurement INNER JOIN beacondistancemeasurement " +
+            "ON locationmeasurement.distanceMeasurement=beacondistancemeasurement.`index` INNER JOIN room ON locationmeasurement.room = room.roomName" )
+//    @Query("SELECT * FROM locationmeasurement")
+    LiveData<List<LocationDistanceJoin>> getAll();
 
 
 }

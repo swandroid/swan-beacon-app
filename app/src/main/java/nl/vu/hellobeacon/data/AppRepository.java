@@ -1,7 +1,6 @@
 package nl.vu.hellobeacon.data;
 
 import android.app.Application;
-import android.arch.lifecycle.LifecycleOwner;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.os.AsyncTask;
@@ -26,6 +25,7 @@ public class AppRepository {
     private LocationMeasurementDAO locationMeasurementDAO;
     private LiveData<List<Room>> allRooms;
     private List<Beacon> allBeacons;
+    private List<BeaconDistanceMeasurement> allBeaconDistanceMeasurements;
     private int beaconCount;
     private int beaconDistanceMeasurementIndex;
 
@@ -138,6 +138,8 @@ public class AppRepository {
 
     public List<Beacon> getAllBeacons() {return allBeacons;}
 
+    public LiveData<List<Beacon>> getLiveBeacons(){return beaconDAO.getAll();}
+
     public void insertBeacon(Beacon beacon){new insertBeaconAsyncTask(beaconDAO).execute(beacon);}
 
     private static class insertBeaconAsyncTask extends AsyncTask<Beacon, Void, Void> {
@@ -181,6 +183,11 @@ public class AppRepository {
     //region BeaconDistanceMeasurement
     public int getBeaconDistanceMeasurementIndex(){return beaconDistanceMeasurementIndex;}
 
+    public List<BeaconDistanceMeasurement> getBeaconDistanceMeasurements(){
+        return beaconDistanceMeasurementDAO.getDistanceMeasurement();
+    }
+
+
     public void insertBeaconDistanceMeasurement(BeaconDistanceMeasurement beaconDistanceMeasurement){
         new insertBeaconDistanceMeasurementAsyncTask(beaconDistanceMeasurementDAO).execute(beaconDistanceMeasurement);
     }
@@ -223,6 +230,10 @@ public class AppRepository {
             myAsyncTaskDao.insert(params[0]);
             return null;
         }
+    }
+
+    public LiveData<List<LocationDistanceJoin>> getLocationMeasurement(){
+        return locationMeasurementDAO.getAll();
     }
 
 

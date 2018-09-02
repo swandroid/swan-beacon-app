@@ -32,6 +32,8 @@ public class BeaconViewModel extends AndroidViewModel {
 
     public List<Beacon> getAllBeacons() { return repository.getAllBeacons(); }
 
+    public LiveData<List<Beacon>> getLiveBeacons() {return repository.getLiveBeacons();}
+
     public LiveData<Integer> getLiveCount(){return liveCount;}
 
     public int count() {return repository.getBeaconCount();}

@@ -29,6 +29,8 @@ public class AddMeasurements extends AppCompatActivity {
     Handler handler;
     List<Beacon> beacons = new ArrayList<>();
 
+
+
     private List<BeaconDistanceSensor> beaconSensors;
 
     @Override
@@ -43,7 +45,15 @@ public class AddMeasurements extends AppCompatActivity {
         beaconViewModel = ViewModelProviders.of(this).get(BeaconViewModel.class);
         beaconDistanceMeasurementViewModel = ViewModelProviders.of(this).get(BeaconDistanceMeasurementViewModel.class);
         locationMeasurementViewModel = ViewModelProviders.of(this).get(LocationMeasurementViewModel.class);
+
+
+
+        beaconDistanceMeasurementViewModel.insert(new BeaconDistanceMeasurement(0, "BEACONUUID", 4.2));
+        locationMeasurementViewModel.insert(new LocationMeasurement(0, "Bedroom"))  ;
+        beaconDistanceMeasurementViewModel.insert(new BeaconDistanceMeasurement(1, "BEACONUUID", 4.1));
+        locationMeasurementViewModel.insert(new LocationMeasurement(1, "Bedroom"))  ;
     }
+
 
     @Override
     protected void onResume(){
@@ -93,7 +103,7 @@ public class AddMeasurements extends AppCompatActivity {
             beaconDistanceMeasurementViewModel.insert(beaconDistanceMeasurement);
         }
 
-        new LocationMeasurement(count, room.roomName);
+        locationMeasurementViewModel.insert(new LocationMeasurement(count, room.roomName));
 
     }
 }
