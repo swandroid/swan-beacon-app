@@ -7,4 +7,8 @@
     <string name="hint_word">Room Name</string>
     <string name="button_save">Save</string>
     <string name="empty_not_saved">Room could not be saved</string>
+    <string name="add_locations">Add Locations</string>
+    <string name="add_beacons">Add Beacons</string>
+    <string name="you_are_in">You are in:</string>
+    <string name="unknown">Unknown</string>
 </resources>

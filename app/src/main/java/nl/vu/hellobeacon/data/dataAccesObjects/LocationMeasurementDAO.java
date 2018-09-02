@@ -11,9 +11,11 @@ import java.util.List;
 
 import nl.vu.hellobeacon.data.entities.LocationMeasurement;
 
+import static android.arch.persistence.room.OnConflictStrategy.REPLACE;
+
 @Dao
 public interface LocationMeasurementDAO {
-    @Insert
+    @Insert(onConflict = REPLACE)
     void insert(LocationMeasurement locationMeasurement);
 
     @Delete

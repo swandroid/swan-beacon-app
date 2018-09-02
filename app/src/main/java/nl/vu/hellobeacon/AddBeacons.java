@@ -31,7 +31,7 @@ public class AddBeacons extends AppCompatActivity {
 
         beaconViewModel = ViewModelProviders.of(this).get(BeaconViewModel.class);
 
-        beaconViewModel.count().observe(this, new Observer<Integer>() {
+        beaconViewModel.getLiveCount().observe(this, new Observer<Integer>() {
             @Override
             public void onChanged(@Nullable final Integer count) {
                 beaconCount = count;

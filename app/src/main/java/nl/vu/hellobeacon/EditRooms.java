@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import nl.vu.hellobeacon.data.entities.Beacon;
 import nl.vu.hellobeacon.data.entities.Room;
 import nl.vu.hellobeacon.listadapters.RoomListAdapter;
 import nl.vu.hellobeacon.listadapters.RoomListAdapterListener;
@@ -32,6 +33,25 @@ public class EditRooms extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_rooms);
+        beaconViewModel = new BeaconViewModel(this.getApplication());
+        roomViewModel = ViewModelProviders.of(this).get(RoomViewModel.class);
+
+        if(BuildConfig.DEBUG) {
+//            roomViewModel.deleteAll();
+
+//            roomViewModel.insert(new Room("Bedroom"));
+//            roomViewModel.insert(new Room("Kitchen"));
+//            roomViewModel.insert(new Room("Living Room"));
+//            roomViewModel.insert(new Room("Bathroom"));
+//            roomViewModel.insert(new Room("Hallway"));
+//
+//            beaconViewModel.insert(new Beacon("BEACONUUID"));
+        }
+
+
+
+
+
 
 
         RecyclerView recyclerView = findViewById(R.id.recylcerView);
@@ -43,13 +63,14 @@ public class EditRooms extends AppCompatActivity {
 
             @Override
             public void addMeasurements(View v, Room room){
-                if(beaconViewModel.count().getValue() == 0){
+                if(beaconViewModel.count() == 0){
                     Toast.makeText(EditRooms.this, "Register Beacons First", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                Intent intent = new Intent(v.getContext(), MainActivity.class);
+                Intent intent = new Intent(v.getContext(), AddMeasurements.class);
                 intent.putExtra("room", room.roomName);
+                startActivity(intent);
 
 
             }
@@ -57,7 +78,7 @@ public class EditRooms extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        roomViewModel = ViewModelProviders.of(this).get(RoomViewModel.class);
+
 
         roomViewModel.getAllRooms().observe(this, new Observer<List<Room>>() {
             @Override
@@ -76,9 +97,6 @@ public class EditRooms extends AppCompatActivity {
                 startActivityForResult(intent, NEW_ROOM_ACTIVITY_REQUEST_CODE);
             }
         });
-
-        beaconViewModel = new BeaconViewModel(this.getApplication());
-
     }
 
 

@@ -1,8 +1,10 @@
 package nl.vu.hellobeacon;
 
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Handler;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -24,6 +26,8 @@ public class AddMeasurements extends AppCompatActivity {
     BeaconViewModel beaconViewModel;
     BeaconDistanceMeasurementViewModel beaconDistanceMeasurementViewModel;
     LocationMeasurementViewModel locationMeasurementViewModel;
+    Handler handler;
+    List<Beacon> beacons = new ArrayList<>();
 
     private List<BeaconDistanceSensor> beaconSensors;
 
@@ -32,9 +36,6 @@ public class AddMeasurements extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_measurements);
 
-        final Handler handler = new Handler();
-        final int delay = 1000;
-
 
         String room = getIntent().getStringExtra("room");
         this.room = new Room(room);
@@ -42,20 +43,23 @@ public class AddMeasurements extends AppCompatActivity {
         beaconViewModel = ViewModelProviders.of(this).get(BeaconViewModel.class);
         beaconDistanceMeasurementViewModel = ViewModelProviders.of(this).get(BeaconDistanceMeasurementViewModel.class);
         locationMeasurementViewModel = ViewModelProviders.of(this).get(LocationMeasurementViewModel.class);
+    }
 
-        List<Beacon> beacons = beaconViewModel.getAllBeacons().getValue();
+    @Override
+    protected void onResume(){
+        super.onResume();
 
-        beaconSensors.clear();
-        for (Beacon beacon: beacons) {
+
+        beaconSensors = new ArrayList<>();
+        for (Beacon beacon: beaconViewModel.getAllBeacons()) {
             beaconSensors.add(new BeaconDistanceSensor(beacon.getUuid()));
         }
         for (BeaconDistanceSensor beaconDistanceSensor: beaconSensors){
             beaconDistanceSensor.registerBeacon(this.getApplicationContext());
         }
 
-
-
-
+        handler = new Handler();
+        final int delay = 1000;
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -65,15 +69,21 @@ public class AddMeasurements extends AppCompatActivity {
         }, delay);
     }
 
+    @Override
+    protected void onPause(){
+        super.onPause();
+        handler.removeCallbacksAndMessages(null);
+    }
+
     private void insertLocation() {
         List<BeaconDistanceMeasurement> distanceMeasurements = new ArrayList<>();
-        Integer count = beaconDistanceMeasurementViewModel.getMaxIndex().getValue();
+        int count = beaconDistanceMeasurementViewModel.getMaxIndex() + 1;
 
         for(BeaconDistanceSensor beaconDistanceSensor: beaconSensors){
             double distance = beaconDistanceSensor.getDistance();
-            if(distance != -1){
-                break;
-            }
+//            if(distance == -1){
+//                break;
+//            }
             distanceMeasurements.add(new BeaconDistanceMeasurement(count, beaconDistanceSensor.getUuid(), distance ));
         }
 
@@ -84,7 +94,6 @@ public class AddMeasurements extends AppCompatActivity {
         }
 
         new LocationMeasurement(count, room.roomName);
-
 
     }
 }

@@ -5,14 +5,14 @@ import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
-import java.util.List;
-
 import nl.vu.hellobeacon.data.entities.BeaconDistanceMeasurement;
+
+import static android.arch.persistence.room.OnConflictStrategy.REPLACE;
 
 
 @Dao
 public interface BeaconDistanceMeasurementDAO {
-    @Insert
+    @Insert(onConflict = REPLACE)
     void insert(BeaconDistanceMeasurement beaconDistanceMeasurement);
 
     @Query("SELECT * FROM BeaconDistanceMeasurement WHERE `index` = :index")

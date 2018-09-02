@@ -10,15 +10,20 @@ import java.util.List;
 
 import nl.vu.hellobeacon.data.entities.Room;
 
+import static android.arch.persistence.room.OnConflictStrategy.REPLACE;
+
 @Dao
 public interface RoomDAO {
-    @Query("SELECT * FROM room")
+    @Query("SELECT * FROM room ORDER BY roomName")
     LiveData<List<Room>> getAll();
 
-    @Insert
+    @Insert(onConflict = REPLACE)
     void insert(Room room);
 
     @Delete
     void delete(Room room);
+
+    @Query("DELETE FROM room")
+    void deleteAll();
 
 }

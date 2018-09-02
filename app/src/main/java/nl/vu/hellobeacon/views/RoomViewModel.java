@@ -27,5 +27,7 @@ public class RoomViewModel extends AndroidViewModel{
         repository.deleteRoom(room);
     }
 
+    public void deleteAll(){repository.deletAllRooms();}
+
     public LiveData<List<Room>> getAllRooms() { return allRooms; }
 }

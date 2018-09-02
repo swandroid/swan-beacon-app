@@ -1,8 +1,11 @@
 package nl.vu.hellobeacon.data;
 
 import android.app.Application;
+import android.arch.lifecycle.LifecycleOwner;
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
 import android.os.AsyncTask;
+import android.support.annotation.Nullable;
 
 import java.util.List;
 
@@ -22,9 +25,9 @@ public class AppRepository {
     private BeaconDistanceMeasurementDAO beaconDistanceMeasurementDAO;
     private LocationMeasurementDAO locationMeasurementDAO;
     private LiveData<List<Room>> allRooms;
-    private LiveData<List<Beacon>> allBeacons;
-    private LiveData<Integer> beaconCount;
-    private LiveData<Integer> beaconDistanceMeasurementIndex;
+    private List<Beacon> allBeacons;
+    private int beaconCount;
+    private int beaconDistanceMeasurementIndex;
 
     private AppRepository(Application application) {
         AppDatabase db = AppDatabase.getDatabase(application);
@@ -33,9 +36,28 @@ public class AppRepository {
         beaconDistanceMeasurementDAO = db.beaconDistanceMeasurementDAO();
         locationMeasurementDAO = db.locationMeasurementDAO();
         allRooms = roomDAO.getAll();
-        allBeacons = beaconDAO.getAll();
-        beaconCount = beaconDAO.count();
-        beaconDistanceMeasurementIndex = beaconDistanceMeasurementDAO.getMaxIndex();
+        beaconDistanceMeasurementDAO.getMaxIndex().observeForever(new Observer<Integer>() {
+            @Override
+            public void onChanged(@Nullable Integer integer) {
+                beaconDistanceMeasurementIndex = integer == null? 0: integer;
+            }
+        });
+
+        beaconDAO.count().observeForever(new Observer<Integer>() {
+            @Override
+            public void onChanged(@Nullable Integer integer) {
+                beaconCount = integer == null? 0 :integer;
+            }
+        });
+
+        beaconDAO.getAll().observeForever(new Observer<List<Beacon>>() {
+            @Override
+            public void onChanged(@Nullable List<Beacon> beacons) {
+                allBeacons = beacons;
+            }
+        });
+
+
     }
 
     private static AppRepository INSTANCE;
@@ -92,11 +114,29 @@ public class AppRepository {
             return null;
         }
     }
+
+    public void deletAllRooms(){new deleteAllRoomAsyncTask(roomDAO).execute();}
+    private static class deleteAllRoomAsyncTask extends AsyncTask<Void, Void, Void> {
+
+        private RoomDAO mAsyncTaskDao;
+
+        deleteAllRoomAsyncTask(RoomDAO dao) {
+            mAsyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            mAsyncTaskDao.deleteAll();
+            return null;
+        }
+    }
+
+
     //endregion
 
     //region Beacons
 
-    public LiveData<List<Beacon>> getAllBeacons() {return allBeacons;}
+    public List<Beacon> getAllBeacons() {return allBeacons;}
 
     public void insertBeacon(Beacon beacon){new insertBeaconAsyncTask(beaconDAO).execute(beacon);}
 
@@ -132,12 +172,14 @@ public class AppRepository {
         }
     }
 
-    public LiveData<Integer> getBeaconCount(){return beaconCount;}
+    public int getBeaconCount(){return beaconCount;}
+
+    public LiveData<Integer> getBeaconLiveCount(){return beaconDAO.count();}
 
     //endregion
 
     //region BeaconDistanceMeasurement
-    public LiveData<Integer> getBeaconDistanceMeasurementIndex(){return beaconDistanceMeasurementIndex;}
+    public int getBeaconDistanceMeasurementIndex(){return beaconDistanceMeasurementIndex;}
 
     public void insertBeaconDistanceMeasurement(BeaconDistanceMeasurement beaconDistanceMeasurement){
         new insertBeaconDistanceMeasurementAsyncTask(beaconDistanceMeasurementDAO).execute(beaconDistanceMeasurement);

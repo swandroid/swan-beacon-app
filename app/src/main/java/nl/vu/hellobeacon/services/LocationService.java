@@ -45,14 +45,7 @@ public class LocationService extends Service {
 
         beaconViewModel = ViewModelProviders.of((FragmentActivity) context).get(BeaconViewModel.class);
 
-        LiveData<List<nl.vu.hellobeacon.data.entities.Beacon>> beacons = beaconViewModel.getAllBeacons();
 
-        beacons.observe((LifecycleOwner) context, new Observer<List<nl.vu.hellobeacon.data.entities.Beacon>>() {
-            @Override
-            public void onChanged(@Nullable List<nl.vu.hellobeacon.data.entities.Beacon> beacons) {
-                updateBeacons(beacons);
-            }
-        });
 
         handler.postDelayed(new Runnable() {
             @Override

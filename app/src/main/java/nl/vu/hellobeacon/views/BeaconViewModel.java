@@ -13,13 +13,12 @@ import nl.vu.hellobeacon.data.entities.Beacon;
 public class BeaconViewModel extends AndroidViewModel {
 
     private AppRepository repository;
-    private LiveData<List<Beacon>> allBeacons;
-    private LiveData<Integer> count;
+    private LiveData<Integer> liveCount;
+
     public BeaconViewModel( Application application) {
         super(application);
         repository = AppRepository.getRepository(application);
-        allBeacons = repository.getAllBeacons();
-        count = repository.getBeaconCount();
+        liveCount = repository.getBeaconLiveCount();
 
     }
 
@@ -31,7 +30,9 @@ public class BeaconViewModel extends AndroidViewModel {
         repository.deleteBeacon(beacon);
     }
 
-    public LiveData<List<Beacon>> getAllBeacons() { return allBeacons; }
+    public List<Beacon> getAllBeacons() { return repository.getAllBeacons(); }
 
-    public LiveData<Integer> count() {return count;}
+    public LiveData<Integer> getLiveCount(){return liveCount;}
+
+    public int count() {return repository.getBeaconCount();}
 }
