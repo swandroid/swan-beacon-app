@@ -12,13 +12,14 @@ import nl.vu.hellobeacon.data.dataAccesObjects.BeaconDAO;
 import nl.vu.hellobeacon.data.dataAccesObjects.BeaconDistanceMeasurementDAO;
 import nl.vu.hellobeacon.data.dataAccesObjects.LocationMeasurementDAO;
 import nl.vu.hellobeacon.data.dataAccesObjects.RoomDAO;
+import nl.vu.hellobeacon.data.entities.Beacon;
 import nl.vu.hellobeacon.data.entities.BeaconDistanceMeasurement;
 import nl.vu.hellobeacon.data.entities.LocationMeasurement;
 import nl.vu.hellobeacon.data.entities.Room;
-import nl.vu.hellobeacon.data.entities.Beacon;
 
 public class AppRepository {
 
+    private static AppRepository INSTANCE;
     private RoomDAO roomDAO;
     private BeaconDAO beaconDAO;
     private BeaconDistanceMeasurementDAO beaconDistanceMeasurementDAO;
@@ -40,7 +41,7 @@ public class AppRepository {
         beaconDAO.count().observeForever(new Observer<Integer>() {
             @Override
             public void onChanged(@Nullable Integer integer) {
-                beaconCount = integer == null? 0 :integer;
+                beaconCount = integer == null ? 0 : integer;
             }
         });
 
@@ -54,9 +55,7 @@ public class AppRepository {
 
     }
 
-    private static AppRepository INSTANCE;
-
-    public static AppRepository getRepository(Application application){
+    public static AppRepository getRepository(Application application) {
         if (INSTANCE == null) {
             synchronized (AppRepository.class) {
                 if (INSTANCE == null) {
@@ -75,7 +74,69 @@ public class AppRepository {
     }
 
 
-    public void insertRoom(Room room){new insertRoomAsyncTask(roomDAO).execute(room);}
+    public void insertRoom(Room room) {
+        new insertRoomAsyncTask(roomDAO).execute(room);
+    }
+
+    public void deleteRoom(Room room) {
+        new deleteRoomAsyncTask(roomDAO).execute(room);
+    }
+
+    public void deletAllRooms() {
+        new deleteAllRoomAsyncTask(roomDAO).execute();
+    }
+
+    public List<Beacon> getAllBeacons() {
+        return allBeacons;
+    }
+
+    public LiveData<List<Beacon>> getLiveBeacons() {
+        return beaconDAO.getAll();
+    }
+
+    public void insertBeacon(Beacon beacon) {
+        new insertBeaconAsyncTask(beaconDAO).execute(beacon);
+    }
+
+
+    //endregion
+
+    //region Beacons
+
+    public void deleteBeacon(Beacon beacon) {
+        new deleteBeaconAsyncTask(beaconDAO).execute(beacon);
+    }
+
+    public int getBeaconCount() {
+        return beaconCount;
+    }
+
+    public LiveData<Integer> getBeaconLiveCount() {
+        return beaconDAO.count();
+    }
+
+    //region BeaconDistanceMeasurement
+    public int getBeaconDistanceMeasurementIndex() {
+        return beaconDistanceMeasurementDAO.getMaxIndex();
+    }
+
+    public List<BeaconDistanceMeasurement> getBeaconDistanceMeasurements() {
+        return beaconDistanceMeasurementDAO.getDistanceMeasurement();
+    }
+
+    public void insertBeaconDistanceMeasurement(BeaconDistanceMeasurement beaconDistanceMeasurement) {
+        new insertBeaconDistanceMeasurementAsyncTask(beaconDistanceMeasurementDAO).execute(beaconDistanceMeasurement);
+    }
+
+    public void insertLocationMeasurement(LocationMeasurement locationMeasurement) {
+        new insertLocationMeasurementAsyncTask(locationMeasurementDAO).execute(locationMeasurement);
+    }
+
+    public LiveData<List<LocationDistanceJoin>> getLocationMeasurement() {
+        return locationMeasurementDAO.getAll();
+    }
+
+    //endregion
 
     private static class insertRoomAsyncTask extends AsyncTask<Room, Void, Void> {
 
@@ -92,8 +153,6 @@ public class AppRepository {
         }
     }
 
-    public void deleteRoom(Room room){new deleteRoomAsyncTask(roomDAO).execute(room);}
-
     private static class deleteRoomAsyncTask extends AsyncTask<Room, Void, Void> {
 
         private RoomDAO mAsyncTaskDao;
@@ -109,7 +168,6 @@ public class AppRepository {
         }
     }
 
-    public void deletAllRooms(){new deleteAllRoomAsyncTask(roomDAO).execute();}
     private static class deleteAllRoomAsyncTask extends AsyncTask<Void, Void, Void> {
 
         private RoomDAO mAsyncTaskDao;
@@ -125,17 +183,6 @@ public class AppRepository {
         }
     }
 
-
-    //endregion
-
-    //region Beacons
-
-    public List<Beacon> getAllBeacons() {return allBeacons;}
-
-    public LiveData<List<Beacon>> getLiveBeacons(){return beaconDAO.getAll();}
-
-    public void insertBeacon(Beacon beacon){new insertBeaconAsyncTask(beaconDAO).execute(beacon);}
-
     private static class insertBeaconAsyncTask extends AsyncTask<Beacon, Void, Void> {
 
         private BeaconDAO mAsyncTaskDao;
@@ -150,8 +197,9 @@ public class AppRepository {
             return null;
         }
     }
+    //endregion
 
-    public void deleteBeacon(Beacon beacon){new deleteBeaconAsyncTask(beaconDAO).execute(beacon);}
+    //region LocationMeasurement
 
     private static class deleteBeaconAsyncTask extends AsyncTask<Beacon, Void, Void> {
 
@@ -168,24 +216,6 @@ public class AppRepository {
         }
     }
 
-    public int getBeaconCount(){return beaconCount;}
-
-    public LiveData<Integer> getBeaconLiveCount(){return beaconDAO.count();}
-
-    //endregion
-
-    //region BeaconDistanceMeasurement
-    public int getBeaconDistanceMeasurementIndex(){return beaconDistanceMeasurementDAO.getMaxIndex();}
-
-    public List<BeaconDistanceMeasurement> getBeaconDistanceMeasurements(){
-        return beaconDistanceMeasurementDAO.getDistanceMeasurement();
-    }
-
-
-    public void insertBeaconDistanceMeasurement(BeaconDistanceMeasurement beaconDistanceMeasurement){
-        new insertBeaconDistanceMeasurementAsyncTask(beaconDistanceMeasurementDAO).execute(beaconDistanceMeasurement);
-    }
-
     private static class insertBeaconDistanceMeasurementAsyncTask extends AsyncTask<BeaconDistanceMeasurement, Void, Void> {
 
         private BeaconDistanceMeasurementDAO mAsyncTaskDao;
@@ -200,23 +230,14 @@ public class AppRepository {
             return null;
         }
     }
-    //endregion
 
-    //region LocationMeasurement
-
-
-    public void insertLocationMeasurement(LocationMeasurement locationMeasurement){
-        new insertLocationMeasurementAsyncTask(locationMeasurementDAO).execute(locationMeasurement);
-    }
-
-    private static class insertLocationMeasurementAsyncTask extends AsyncTask<LocationMeasurement, Void, Void>{
+    private static class insertLocationMeasurementAsyncTask extends AsyncTask<LocationMeasurement, Void, Void> {
 
         private LocationMeasurementDAO myAsyncTaskDao;
 
         insertLocationMeasurementAsyncTask(LocationMeasurementDAO dao) {
             myAsyncTaskDao = dao;
         }
-
 
 
         @Override
@@ -226,13 +247,8 @@ public class AppRepository {
         }
     }
 
-    public LiveData<List<LocationDistanceJoin>> getLocationMeasurement(){
-        return locationMeasurementDAO.getAll();
-    }
-
 
     //endregion
-
 
 
 }

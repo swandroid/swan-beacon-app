@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -17,6 +16,16 @@ import nl.vu.hellobeacon.services.LocationService;
 public class MainActivity extends AppCompatActivity {
 
     private IntentFilter intentFilter;
+    private BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Log.d("receiver", "received intent");
+            Log.d("receiver", intent.getStringExtra("location"));
+            ((TextView) findViewById(R.id.textView2)).setText(intent.getStringExtra("location"));
+
+
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,29 +55,9 @@ public class MainActivity extends AppCompatActivity {
         registerReceiver(mReceiver, intentFilter);
 
 
-
-
-
-
-
-
-
-
-
         Intent intent = new Intent(this, LocationService.class);
         startService(intent);
 
     }
-
-    private BroadcastReceiver mReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            Log.d("receiver", "received intent");
-            Log.d("receiver", intent.getStringExtra("location"));
-            ((TextView)findViewById(R.id.textView2)).setText(intent.getStringExtra("location"));
-
-
-        }
-    };
 
 }

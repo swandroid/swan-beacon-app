@@ -9,25 +9,31 @@ import java.util.List;
 import nl.vu.hellobeacon.data.AppRepository;
 import nl.vu.hellobeacon.data.entities.Room;
 
-public class RoomViewModel extends AndroidViewModel{
+public class RoomViewModel extends AndroidViewModel {
 
     private AppRepository repository;
     private LiveData<List<Room>> allRooms;
-    public RoomViewModel( Application application) {
+
+    public RoomViewModel(Application application) {
         super(application);
         repository = AppRepository.getRepository(application);
         allRooms = repository.getAllRooms();
 
     }
 
-    public void insert(Room room){
-        repository.insertRoom(room);}
+    public void insert(Room room) {
+        repository.insertRoom(room);
+    }
 
-    public void delete(Room room){
+    public void delete(Room room) {
         repository.deleteRoom(room);
     }
 
-    public void deleteAll(){repository.deletAllRooms();}
+    public void deleteAll() {
+        repository.deletAllRooms();
+    }
 
-    public LiveData<List<Room>> getAllRooms() { return allRooms; }
+    public LiveData<List<Room>> getAllRooms() {
+        return allRooms;
+    }
 }

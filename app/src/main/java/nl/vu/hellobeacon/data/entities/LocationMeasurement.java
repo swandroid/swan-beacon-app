@@ -9,13 +9,13 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
 @Entity(primaryKeys = {"distanceMeasurement", "room"},
         foreignKeys = {
                 @ForeignKey(entity = BeaconDistanceMeasurement.class,
-                                    parentColumns = "index",
-                                    childColumns = "distanceMeasurement",
-                                    onDelete = CASCADE),
+                        parentColumns = "index",
+                        childColumns = "distanceMeasurement",
+                        onDelete = CASCADE),
                 @ForeignKey(entity = Room.class,
-                                    parentColumns = "roomName",
-                                    childColumns = "room",
-                                    onDelete = CASCADE)
+                        parentColumns = "roomName",
+                        childColumns = "room",
+                        onDelete = CASCADE)
         })
 public class LocationMeasurement {
     @NonNull
@@ -24,7 +24,7 @@ public class LocationMeasurement {
     @NonNull
     public final String room;
 
-    public LocationMeasurement(int distanceMeasurement, String room){
+    public LocationMeasurement(int distanceMeasurement, String room) {
         this.distanceMeasurement = distanceMeasurement;
         this.room = room;
     }

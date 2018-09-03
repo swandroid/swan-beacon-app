@@ -2,7 +2,6 @@ package nl.vu.hellobeacon.data.entities;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
-import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
 import static android.arch.persistence.room.ForeignKey.CASCADE;
@@ -10,9 +9,9 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
 
 @Entity(primaryKeys = {"index"},
         foreignKeys = @ForeignKey(entity = Beacon.class,
-                                    parentColumns = "uuid",
-                                    childColumns = "beacon",
-                                    onDelete = CASCADE))
+                parentColumns = "uuid",
+                childColumns = "beacon",
+                onDelete = CASCADE))
 public class BeaconDistanceMeasurement {
 
     @NonNull
@@ -24,7 +23,7 @@ public class BeaconDistanceMeasurement {
 
     public double distance;
 
-    public BeaconDistanceMeasurement(int index, String beacon, double distance){
+    public BeaconDistanceMeasurement(int index, String beacon, double distance) {
         this.index = index;
         this.beacon = beacon;
         this.distance = distance;

@@ -16,24 +16,9 @@ import nl.vu.hellobeacon.data.entities.Room;
 
 public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.RoomViewHolder> {
 
-    private RoomListAdapterListener onClickListener;
-
-    class RoomViewHolder extends RecyclerView.ViewHolder {
-        private final TextView RoomItemView;
-        private final ImageButton DeleteRoom;
-        private final ImageButton AddMeasurements;
-
-        private RoomViewHolder(View itemView) {
-            super(itemView);
-            RoomItemView = itemView.findViewById(R.id.placehloder);
-            DeleteRoom = itemView.findViewById(R.id.deleteRoom);
-            AddMeasurements = itemView.findViewById(R.id.addMeasurements);
-        }
-    }
-
     private final LayoutInflater mInflater;
+    private RoomListAdapterListener onClickListener;
     private List<Room> mRooms; // Cached copy of Rooms
-
     public RoomListAdapter(Context context, RoomListAdapterListener onClickListener) {
         mInflater = LayoutInflater.from(context);
         this.onClickListener = onClickListener;
@@ -51,12 +36,12 @@ public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.RoomVi
         holder.RoomItemView.setText(mRooms.get(position).roomName);
         holder.DeleteRoom.setOnClickListener(
                 new View.OnClickListener() {
-                     @Override
-                     public void onClick(View v) {
-                         onClickListener.deleteRoomOnClick(v, mRooms.get(position));
+                    @Override
+                    public void onClick(View v) {
+                        onClickListener.deleteRoomOnClick(v, mRooms.get(position));
 
-                     }
-                 }
+                    }
+                }
 
         );
 
@@ -68,7 +53,7 @@ public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.RoomVi
         });
     }
 
-    public void setRooms(List<Room> Rooms){
+    public void setRooms(List<Room> Rooms) {
         mRooms = Rooms;
         notifyDataSetChanged();
     }
@@ -80,6 +65,19 @@ public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.RoomVi
         if (mRooms != null)
             return mRooms.size();
         else return 0;
+    }
+
+    class RoomViewHolder extends RecyclerView.ViewHolder {
+        private final TextView RoomItemView;
+        private final ImageButton DeleteRoom;
+        private final ImageButton AddMeasurements;
+
+        private RoomViewHolder(View itemView) {
+            super(itemView);
+            RoomItemView = itemView.findViewById(R.id.placehloder);
+            DeleteRoom = itemView.findViewById(R.id.deleteRoom);
+            AddMeasurements = itemView.findViewById(R.id.addMeasurements);
+        }
     }
 
 

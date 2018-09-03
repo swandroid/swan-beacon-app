@@ -1,12 +1,9 @@
 package nl.vu.hellobeacon;
 
-import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
-import android.os.Handler;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v7.app.AppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,15 +28,12 @@ public class AddMeasurements extends AppCompatActivity {
     List<Beacon> beacons = new ArrayList<>();
 
 
-
     private List<BeaconDistanceSensor> beaconSensors;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_measurements);
-
-
 
 
         String room = getIntent().getStringExtra("room");
@@ -53,22 +47,22 @@ public class AddMeasurements extends AppCompatActivity {
 
 
         beaconDistanceMeasurementViewModel.insert(new BeaconDistanceMeasurement(0, "BEACONUUID", 4.2));
-        locationMeasurementViewModel.insert(new LocationMeasurement(0, "Bedroom"))  ;
+        locationMeasurementViewModel.insert(new LocationMeasurement(0, "Bedroom"));
         beaconDistanceMeasurementViewModel.insert(new BeaconDistanceMeasurement(1, "BEACONUUID", 4.1));
-        locationMeasurementViewModel.insert(new LocationMeasurement(1, "Bedroom"))  ;
+        locationMeasurementViewModel.insert(new LocationMeasurement(1, "Bedroom"));
     }
 
 
     @Override
-    protected void onResume(){
+    protected void onResume() {
         super.onResume();
 
 
         beaconSensors = new ArrayList<>();
-        for (Beacon beacon: beaconViewModel.getAllBeacons()) {
+        for (Beacon beacon : beaconViewModel.getAllBeacons()) {
             beaconSensors.add(new BeaconDistanceSensor(beacon.getUuid()));
         }
-        for (BeaconDistanceSensor beaconDistanceSensor: beaconSensors){
+        for (BeaconDistanceSensor beaconDistanceSensor : beaconSensors) {
             beaconDistanceSensor.registerBeacon(this.getApplicationContext());
         }
 
@@ -79,31 +73,31 @@ public class AddMeasurements extends AppCompatActivity {
             public void run() {
                 count += 1;
                 insertLocation(count);
-                handler.postDelayed(this,delay);
+                handler.postDelayed(this, delay);
             }
         }, delay);
     }
 
     @Override
-    protected void onPause(){
+    protected void onPause() {
         super.onPause();
         handler.removeCallbacksAndMessages(null);
     }
 
-    private void insertLocation( int count) {
+    private void insertLocation(int count) {
         List<BeaconDistanceMeasurement> distanceMeasurements = new ArrayList<>();
 
 
-        for(BeaconDistanceSensor beaconDistanceSensor: beaconSensors){
+        for (BeaconDistanceSensor beaconDistanceSensor : beaconSensors) {
             double distance = beaconDistanceSensor.getDistance();
 //            if(distance == -1){
 //                break;
 //            }
-            distanceMeasurements.add(new BeaconDistanceMeasurement(count, beaconDistanceSensor.getUuid(), distance ));
+            distanceMeasurements.add(new BeaconDistanceMeasurement(count, beaconDistanceSensor.getUuid(), distance));
         }
 
 
-        for(BeaconDistanceMeasurement beaconDistanceMeasurement: distanceMeasurements){
+        for (BeaconDistanceMeasurement beaconDistanceMeasurement : distanceMeasurements) {
 
             beaconDistanceMeasurementViewModel.insert(beaconDistanceMeasurement);
         }

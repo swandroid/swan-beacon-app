@@ -14,21 +14,21 @@ import interdroid.swancore.swansong.ValueExpression;
 
 public class BeaconDistanceSensor {
 
+    private final static int MAX_DELAY = 10000;
     private String uuid;
     private double distance;
     private boolean swanRegistered;
     private long timestamp;
-    private final static int MAX_DELAY = 10000;
 
 
-    public BeaconDistanceSensor(String uuid){
+    public BeaconDistanceSensor(String uuid) {
         this.distance = -1;
         this.uuid = uuid;
         swanRegistered = false;
         timestamp = 0;
     }
 
-    public BeaconDistanceSensor(String uuid, String postfix){
+    public BeaconDistanceSensor(String uuid, String postfix) {
         this(uuid);
         this.uuid += postfix;
     }
@@ -39,18 +39,18 @@ public class BeaconDistanceSensor {
         }
 
 
-        try{
-            ExpressionManager.registerValueExpression(context, uuid,  (ValueExpression) ExpressionFactory.parse(uuid + "@beaconDistance:distance{MEAN,100}"),
+        try {
+            ExpressionManager.registerValueExpression(context, uuid, (ValueExpression) ExpressionFactory.parse(uuid + "@beaconDistance:distance{MEAN,100}"),
                     new ValueExpressionListener() {
 
                         @Override
                         public void onNewValues(String id,
                                                 TimestampedValue[] arg1) {
-                            Log.d("BeaconDistanceSensor","New Values:" + id + " uuid:" + uuid);
-                            if(arg1 != null && arg1.length > 0){
-                                for(TimestampedValue t: arg1) {
+                            Log.d("BeaconDistanceSensor", "New Values:" + id + " uuid:" + uuid);
+                            if (arg1 != null && arg1.length > 0) {
+                                for (TimestampedValue t : arg1) {
                                     Log.d("BeaconDistanceSensor", "Value" + t.getValue().toString());
-                                    distance = (double)t.getValue();
+                                    distance = (double) t.getValue();
                                     timestamp = t.getTimestamp();
                                 }
                             }
@@ -68,25 +68,24 @@ public class BeaconDistanceSensor {
     }
 
 
-
-    public double getDistance(){
-        if(timestamp < System.currentTimeMillis() - MAX_DELAY)
+    public double getDistance() {
+        if (timestamp < System.currentTimeMillis() - MAX_DELAY)
             return -1;
 
         return distance;
     }
 
-    public String getUuid(){
+    public String getUuid() {
         return this.uuid;
     }
 
     @Override
-    public boolean equals(Object obj){
-        if(obj == null){
+    public boolean equals(Object obj) {
+        if (obj == null) {
             return false;
         }
 
-        if(!BeaconDistanceSensor.class.isAssignableFrom(obj.getClass())){
+        if (!BeaconDistanceSensor.class.isAssignableFrom(obj.getClass())) {
             return false;
         }
 
@@ -96,7 +95,7 @@ public class BeaconDistanceSensor {
     }
 
     @Override
-    public int hashCode(){
+    public int hashCode() {
         return uuid.hashCode();
     }
 

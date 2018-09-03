@@ -4,13 +4,10 @@ package nl.vu.hellobeacon.views;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 
-import java.util.List;
-
 import nl.vu.hellobeacon.data.AppRepository;
-import nl.vu.hellobeacon.data.LocationDistanceJoin;
 import nl.vu.hellobeacon.data.entities.LocationMeasurement;
 
-public class LocationMeasurementViewModel extends AndroidViewModel{
+public class LocationMeasurementViewModel extends AndroidViewModel {
 
     private AppRepository repository;
 
@@ -20,6 +17,8 @@ public class LocationMeasurementViewModel extends AndroidViewModel{
         repository = AppRepository.getRepository(application);
     }
 
-    public void insert(LocationMeasurement locationMeasurement){repository.insertLocationMeasurement(locationMeasurement);}
+    public void insert(LocationMeasurement locationMeasurement) {
+        repository.insertLocationMeasurement(locationMeasurement);
+    }
 
 }

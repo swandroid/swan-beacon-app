@@ -3,11 +3,10 @@ package nl.vu.hellobeacon;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
-import android.support.annotation.MainThread;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -37,8 +36,7 @@ public class EditRooms extends AppCompatActivity {
         roomViewModel = ViewModelProviders.of(this).get(RoomViewModel.class);
 
 
-
-        if(BuildConfig.DEBUG) {
+        if (BuildConfig.DEBUG) {
             roomViewModel.deleteAll();
 
             roomViewModel.insert(new Room("Bedroom"));
@@ -51,9 +49,6 @@ public class EditRooms extends AppCompatActivity {
         }
 
 
-
-
-
         RecyclerView recyclerView = findViewById(R.id.recylcerView);
         final RoomListAdapter adapter = new RoomListAdapter(this, new RoomListAdapterListener() {
             @Override
@@ -62,8 +57,8 @@ public class EditRooms extends AppCompatActivity {
             }
 
             @Override
-            public void addMeasurements(View v, Room room){
-                if(beaconViewModel.count() == 0){
+            public void addMeasurements(View v, Room room) {
+                if (beaconViewModel.count() == 0) {
                     Toast.makeText(EditRooms.this, "Register Beacons First", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -77,7 +72,6 @@ public class EditRooms extends AppCompatActivity {
         });
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
 
 
         roomViewModel.getAllRooms().observe(this, new Observer<List<Room>>() {
@@ -113,7 +107,6 @@ public class EditRooms extends AppCompatActivity {
                     Toast.LENGTH_LONG).show();
         }
     }
-
 
 
 }

@@ -10,7 +10,7 @@ import java.util.List;
 
 import nl.vu.hellobeacon.data.entities.Beacon;
 
-import static android.arch.persistence.room.OnConflictStrategy.*;
+import static android.arch.persistence.room.OnConflictStrategy.REPLACE;
 
 @Dao
 public interface BeaconDAO {

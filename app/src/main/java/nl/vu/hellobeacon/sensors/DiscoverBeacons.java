@@ -17,16 +17,15 @@ import nl.vu.hellobeacon.views.BeaconViewModel;
 
 public class DiscoverBeacons {
 
+    private static DiscoverBeacons INSTANCE;
+    private final String[] beaconTypes = new String[]{"ibeaconuuid", "eddystoneuid", "altbeacon", "estimotenearable"};
     public String id, swanExpression;
     BeaconViewModel beaconViewModel;
-    private final  String[] beaconTypes =new String[]{"ibeaconuuid", "eddystoneuid", "altbeacon", "estimotenearable"};
 
-    private DiscoverBeacons(){
+    private DiscoverBeacons() {
         swanExpression = "self@beacon_discovery:%s{ANY, 10}";
 
     }
-
-    private static DiscoverBeacons INSTANCE;
 
     public static DiscoverBeacons getDiscoverBeacons() {
         if (INSTANCE == null) {
@@ -59,9 +58,9 @@ public class DiscoverBeacons {
 
 
         try {
-            for(String beaconType: beaconTypes) {
+            for (String beaconType : beaconTypes) {
                 Log.d("BeaconDistanceSensor", String.format(swanExpression, beaconType));
-                ExpressionManager.registerValueExpression(context, id+beaconType, (ValueExpression) ExpressionFactory.parse(String.format(swanExpression, beaconType)), valueExpressionListener);
+                ExpressionManager.registerValueExpression(context, id + beaconType, (ValueExpression) ExpressionFactory.parse(String.format(swanExpression, beaconType)), valueExpressionListener);
             }
 
         } catch (ExpressionParseException e) {
@@ -72,8 +71,8 @@ public class DiscoverBeacons {
     }
 
     public void unregisterSensor(final Context context) {
-        for(String beaconType: beaconTypes)
-            ExpressionManager.unregisterExpression(context, id+beaconType);
+        for (String beaconType : beaconTypes)
+            ExpressionManager.unregisterExpression(context, id + beaconType);
     }
 }
 

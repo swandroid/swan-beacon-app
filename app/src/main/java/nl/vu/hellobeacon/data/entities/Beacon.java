@@ -10,11 +10,11 @@ public class Beacon {
     @NonNull
     private String uuid;
 
-    public String getUuid(){
-        return uuid;
+    public Beacon(String uuid) {
+        this.uuid = uuid;
     }
 
-    public Beacon(String uuid){
-        this.uuid = uuid;
+    public String getUuid() {
+        return uuid;
     }
 }

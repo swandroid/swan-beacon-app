@@ -23,7 +23,7 @@ public interface LocationMeasurementDAO {
     void delete(LocationMeasurement locationMeasurement);
 
     @Query("SELECT * FROM locationmeasurement INNER JOIN beacondistancemeasurement " +
-            "ON locationmeasurement.distanceMeasurement=beacondistancemeasurement.`index` INNER JOIN room ON locationmeasurement.room = room.roomName" )
+            "ON locationmeasurement.distanceMeasurement=beacondistancemeasurement.`index` INNER JOIN room ON locationmeasurement.room = room.roomName")
 //    @Query("SELECT * FROM locationmeasurement")
     LiveData<List<LocationDistanceJoin>> getAll();
 

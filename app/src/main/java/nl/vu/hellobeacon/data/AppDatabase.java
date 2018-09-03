@@ -3,7 +3,6 @@ package nl.vu.hellobeacon.data;
 
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
-
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
@@ -17,14 +16,6 @@ import nl.vu.hellobeacon.data.entities.LocationMeasurement;
 
 @Database(entities = {nl.vu.hellobeacon.data.entities.Room.class, Beacon.class, BeaconDistanceMeasurement.class, LocationMeasurement.class}, version = 10)
 public abstract class AppDatabase extends RoomDatabase {
-
-    public abstract RoomDAO roomDAO();
-
-    public abstract BeaconDAO beaconDAO();
-
-    public abstract BeaconDistanceMeasurementDAO beaconDistanceMeasurementDAO();
-
-    public abstract LocationMeasurementDAO locationMeasurementDAO();
 
     private static AppDatabase INSTANCE;
 
@@ -44,6 +35,14 @@ public abstract class AppDatabase extends RoomDatabase {
         }
         return INSTANCE;
     }
+
+    public abstract RoomDAO roomDAO();
+
+    public abstract BeaconDAO beaconDAO();
+
+    public abstract BeaconDistanceMeasurementDAO beaconDistanceMeasurementDAO();
+
+    public abstract LocationMeasurementDAO locationMeasurementDAO();
 
 
 }

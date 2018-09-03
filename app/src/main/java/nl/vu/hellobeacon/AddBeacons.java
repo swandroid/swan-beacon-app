@@ -2,12 +2,10 @@ package nl.vu.hellobeacon;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import nl.vu.hellobeacon.sensors.DiscoverBeacons;
 import nl.vu.hellobeacon.views.BeaconViewModel;
@@ -17,7 +15,6 @@ public class AddBeacons extends AppCompatActivity {
     private BeaconViewModel beaconViewModel;
     private DiscoverBeacons discoverBeacons;
     private Integer beaconCount;
-
 
 
     @Override
@@ -48,13 +45,13 @@ public class AddBeacons extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume(){
+    protected void onResume() {
         super.onResume();
         discoverBeacons.registerSensor(this);
     }
 
     @Override
-    protected void onPause(){
+    protected void onPause() {
         super.onPause();
         discoverBeacons.unregisterSensor(this);
 
