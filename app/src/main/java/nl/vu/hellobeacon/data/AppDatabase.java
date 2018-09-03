@@ -15,7 +15,7 @@ import nl.vu.hellobeacon.data.entities.Beacon;
 import nl.vu.hellobeacon.data.entities.BeaconDistanceMeasurement;
 import nl.vu.hellobeacon.data.entities.LocationMeasurement;
 
-@Database(entities = {nl.vu.hellobeacon.data.entities.Room.class, Beacon.class, BeaconDistanceMeasurement.class, LocationMeasurement.class}, version = 9)
+@Database(entities = {nl.vu.hellobeacon.data.entities.Room.class, Beacon.class, BeaconDistanceMeasurement.class, LocationMeasurement.class}, version = 10)
 public abstract class AppDatabase extends RoomDatabase {
 
     public abstract RoomDAO roomDAO();

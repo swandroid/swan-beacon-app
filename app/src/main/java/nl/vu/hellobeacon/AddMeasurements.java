@@ -27,6 +27,7 @@ public class AddMeasurements extends AppCompatActivity {
     BeaconDistanceMeasurementViewModel beaconDistanceMeasurementViewModel;
     LocationMeasurementViewModel locationMeasurementViewModel;
     Handler handler;
+    int count;
     List<Beacon> beacons = new ArrayList<>();
 
 
@@ -39,6 +40,8 @@ public class AddMeasurements extends AppCompatActivity {
         setContentView(R.layout.activity_add_measurements);
 
 
+
+
         String room = getIntent().getStringExtra("room");
         this.room = new Room(room);
 
@@ -46,6 +49,7 @@ public class AddMeasurements extends AppCompatActivity {
         beaconDistanceMeasurementViewModel = ViewModelProviders.of(this).get(BeaconDistanceMeasurementViewModel.class);
         locationMeasurementViewModel = ViewModelProviders.of(this).get(LocationMeasurementViewModel.class);
 
+        count = beaconDistanceMeasurementViewModel.getMaxIndex();
 
 
         beaconDistanceMeasurementViewModel.insert(new BeaconDistanceMeasurement(0, "BEACONUUID", 4.2));
@@ -73,7 +77,8 @@ public class AddMeasurements extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                insertLocation();
+                count += 1;
+                insertLocation(count);
                 handler.postDelayed(this,delay);
             }
         }, delay);
@@ -85,9 +90,9 @@ public class AddMeasurements extends AppCompatActivity {
         handler.removeCallbacksAndMessages(null);
     }
 
-    private void insertLocation() {
+    private void insertLocation( int count) {
         List<BeaconDistanceMeasurement> distanceMeasurements = new ArrayList<>();
-        int count = beaconDistanceMeasurementViewModel.getMaxIndex() + 1;
+
 
         for(BeaconDistanceSensor beaconDistanceSensor: beaconSensors){
             double distance = beaconDistanceSensor.getDistance();

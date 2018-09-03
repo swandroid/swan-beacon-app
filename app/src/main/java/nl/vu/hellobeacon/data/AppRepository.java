@@ -27,7 +27,6 @@ public class AppRepository {
     private List<Beacon> allBeacons;
     private List<BeaconDistanceMeasurement> allBeaconDistanceMeasurements;
     private int beaconCount;
-    private int beaconDistanceMeasurementIndex;
 
     private AppRepository(Application application) {
         AppDatabase db = AppDatabase.getDatabase(application);
@@ -36,12 +35,7 @@ public class AppRepository {
         beaconDistanceMeasurementDAO = db.beaconDistanceMeasurementDAO();
         locationMeasurementDAO = db.locationMeasurementDAO();
         allRooms = roomDAO.getAll();
-        beaconDistanceMeasurementDAO.getMaxIndex().observeForever(new Observer<Integer>() {
-            @Override
-            public void onChanged(@Nullable Integer integer) {
-                beaconDistanceMeasurementIndex = integer == null? 0: integer;
-            }
-        });
+
 
         beaconDAO.count().observeForever(new Observer<Integer>() {
             @Override
@@ -181,7 +175,7 @@ public class AppRepository {
     //endregion
 
     //region BeaconDistanceMeasurement
-    public int getBeaconDistanceMeasurementIndex(){return beaconDistanceMeasurementIndex;}
+    public int getBeaconDistanceMeasurementIndex(){return beaconDistanceMeasurementDAO.getMaxIndex();}
 
     public List<BeaconDistanceMeasurement> getBeaconDistanceMeasurements(){
         return beaconDistanceMeasurementDAO.getDistanceMeasurement();

@@ -13,14 +13,19 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.util.SparseArray;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
+import nl.vu.hellobeacon.MainActivity;
 import nl.vu.hellobeacon.data.AppRepository;
 import nl.vu.hellobeacon.data.LocationDistanceJoin;
 import nl.vu.hellobeacon.data.entities.BeaconDistanceMeasurement;
@@ -41,7 +46,7 @@ public class LocationService extends Service {
     private List<Beacon> beacons;
     private List<BeaconDistanceSensor> beaconDistanceSensors;
 
-    SparseArray<List<LocationDistanceJoin>> map = new SparseArray<>();
+    SparseArray<Map<String, LocationDistanceJoin>> map = new SparseArray<>();
     private Context context;
 
     public LocationService(){
@@ -102,13 +107,15 @@ public class LocationService extends Service {
             public void onChanged(@Nullable List<LocationDistanceJoin> ldj) {
                 if(ldj != null){
                     locationDistanceJoins = ldj;
-
+                    map = new SparseArray<>();
                     for(LocationDistanceJoin locationDistanceJoin : locationDistanceJoins){
                         int index = locationDistanceJoin.b.index;
                         if(map.get(index) == null){
-                            map.put(index, new ArrayList<LocationDistanceJoin>());
+                            map.put(index,new HashMap<String, LocationDistanceJoin>());
                         }
-                        map.get(index).add(locationDistanceJoin);
+
+                        Map<String, LocationDistanceJoin> locationDistanceJoins = map.get(index);
+                        locationDistanceJoins.put(locationDistanceJoin.b.beacon, locationDistanceJoin);
                     }
 
                 }
@@ -130,6 +137,24 @@ public class LocationService extends Service {
 
     public void getLocation(){
 
+        if(map == null || map.size() == 0 || beaconDistanceSensors == null || beaconDistanceSensors.size() == 0){
+            return;
+        }
+        HashMap<String, Double> beaconDistance = new HashMap<>();
+        for(BeaconDistanceSensor b: beaconDistanceSensors){
+            double d = b.getDistance();
+            String s = b.getUuid();
+
+            beaconDistance.put(s, d);
+        }
+
+        String closestRoom = findClosest(beaconDistance, map);
+
+        Log.d("Broadcast", closestRoom);
+        Intent broadcastIntent = new Intent();
+        broadcastIntent.setAction("UpdateLocation");
+        broadcastIntent.putExtra("location", closestRoom);
+        sendBroadcast(broadcastIntent);
 
 
 
@@ -138,6 +163,47 @@ public class LocationService extends Service {
 
 
     }
+
+    private String findClosest(HashMap<String, Double> beaconDistance, SparseArray<Map<String, LocationDistanceJoin>> map) {
+        String closest = "Unknonw";
+        double minDistance = Double.MAX_VALUE;
+
+        for (int i = 0; i < map.size(); i++) {
+            double distance = 0;
+            String room = "Unknown";
+
+            Map<String, LocationDistanceJoin> locationMeasurment = map.get(map.keyAt(i));
+            for (Map.Entry pair : beaconDistance.entrySet()) {
+
+                String uuid = (String) pair.getKey();
+                double foundDistance = (double) pair.getValue();
+                if (locationMeasurment.get(uuid) == null) {
+                    distance += Math.abs(15 - foundDistance);
+                } else {
+                    room = locationMeasurment.get(uuid).r.roomName;
+                    distance += Math.abs(locationMeasurment.get(uuid).b.distance - foundDistance);
+                }
+            }
+
+            if (distance < minDistance) {
+                minDistance = distance;
+                closest = room;
+            }
+
+
+        }
+
+        return closest;
+
+    }
+
+
+
+
+
+
+
+
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {

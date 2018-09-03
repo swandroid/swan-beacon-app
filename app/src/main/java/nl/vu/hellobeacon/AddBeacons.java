@@ -18,16 +18,15 @@ public class AddBeacons extends AppCompatActivity {
     private DiscoverBeacons discoverBeacons;
     private Integer beaconCount;
 
-    AddBeacons(){
-        super();
-        discoverBeacons = DiscoverBeacons.getDiscoverBeacons();
-    }
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_beacons);
+
+        discoverBeacons = DiscoverBeacons.getDiscoverBeacons();
+
 
         beaconViewModel = ViewModelProviders.of(this).get(BeaconViewModel.class);
 
