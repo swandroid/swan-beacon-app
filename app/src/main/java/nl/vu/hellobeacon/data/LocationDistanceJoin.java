@@ -2,7 +2,6 @@ package nl.vu.hellobeacon.data;
 
 import android.arch.persistence.room.Embedded;
 
-import nl.vu.hellobeacon.data.entities.Beacon;
 import nl.vu.hellobeacon.data.entities.BeaconDistanceMeasurement;
 import nl.vu.hellobeacon.data.entities.Room;
 

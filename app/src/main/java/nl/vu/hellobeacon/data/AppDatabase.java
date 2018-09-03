@@ -15,7 +15,7 @@ import nl.vu.hellobeacon.data.entities.Beacon;
 import nl.vu.hellobeacon.data.entities.BeaconDistanceMeasurement;
 import nl.vu.hellobeacon.data.entities.LocationMeasurement;
 
-@Database(entities = {nl.vu.hellobeacon.data.entities.Room.class, Beacon.class, BeaconDistanceMeasurement.class, LocationMeasurement.class}, version = 8)
+@Database(entities = {nl.vu.hellobeacon.data.entities.Room.class, Beacon.class, BeaconDistanceMeasurement.class, LocationMeasurement.class}, version = 9)
 public abstract class AppDatabase extends RoomDatabase {
 
     public abstract RoomDAO roomDAO();
@@ -37,6 +37,7 @@ public abstract class AppDatabase extends RoomDatabase {
                             // Wipes and rebuilds instead of migrating if no Migration object.
                             // Migration is not part of this codelab.
                             .fallbackToDestructiveMigration()
+                            .allowMainThreadQueries()
                             .build();
                 }
             }

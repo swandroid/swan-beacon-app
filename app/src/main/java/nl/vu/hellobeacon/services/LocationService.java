@@ -7,13 +7,18 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.FragmentActivity;
+import android.util.SparseArray;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 import nl.vu.hellobeacon.data.AppRepository;
@@ -34,8 +39,14 @@ public class LocationService extends Service {
     private AppRepository repository;
     private List<LocationDistanceJoin> locationDistanceJoins;
     private List<Beacon> beacons;
+    private List<BeaconDistanceSensor> beaconDistanceSensors;
 
+    SparseArray<List<LocationDistanceJoin>> map = new SparseArray<>();
     private Context context;
+
+    public LocationService(){
+        beaconDistanceSensors =new ArrayList<>();
+    }
 
 
     @Override
@@ -72,6 +83,13 @@ public class LocationService extends Service {
             public void onChanged(@Nullable List<Beacon> beaconList) {
                 if(beaconList != null){
                     beacons = beaconList;
+                    for(BeaconDistanceSensor b: beaconDistanceSensors){
+                        b.unRegisterBeacon(context);
+                    }
+                    beaconDistanceSensors = new ArrayList<>();
+                    for(Beacon b: beaconList){
+                        beaconDistanceSensors.add(new BeaconDistanceSensor(b.getUuid()).registerBeacon(context));
+                    }
                 }
             }
         });
@@ -79,32 +97,41 @@ public class LocationService extends Service {
     }
 
     private void initializeMeasurements(){
-        locationDistanceJoins = new ArrayList<>();
         repository.getLocationMeasurement().observeForever(new Observer<List<LocationDistanceJoin>>() {
             @Override
             public void onChanged(@Nullable List<LocationDistanceJoin> ldj) {
                 if(ldj != null){
                     locationDistanceJoins = ldj;
+
+                    for(LocationDistanceJoin locationDistanceJoin : locationDistanceJoins){
+                        int index = locationDistanceJoin.b.index;
+                        if(map.get(index) == null){
+                            map.put(index, new ArrayList<LocationDistanceJoin>());
+                        }
+                        map.get(index).add(locationDistanceJoin);
+                    }
+
                 }
             }
         });
+
+
+
+
+
+
+
+
+
+
+
     }
 
-//    private void updateBeacons(List<Beacon> beaconList){
-//        for(BeaconDistanceSensor beacon: beacons){
-//            beacon.unRegisterBeacon(context);
-//        }
-//        beacons.clear();
-//        for(Beacon beacon: beaconList){
-//            beacons.add(new BeaconDistanceSensor(beacon.getUuid()));
-//        }
-//
-//        for(BeaconDistanceSensor beacon: beacons){
-//            beacon.registerBeacon(this.getApplicationContext());
-//        }
-//    }
 
     public void getLocation(){
+
+
+
 
 
 

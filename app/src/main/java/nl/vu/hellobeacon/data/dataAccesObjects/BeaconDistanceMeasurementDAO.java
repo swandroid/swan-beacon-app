@@ -21,6 +21,6 @@ public interface BeaconDistanceMeasurementDAO {
     List<BeaconDistanceMeasurement> getDistanceMeasurement();
 
     @Query("SELECT MAX(`index`) FROM beaconDistanceMeasurement")
-    LiveData<Integer> getMaxIndex();
+    int getMaxIndex();
 
 }
